@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c4d3bf">
+<meta name="description" content="Một khu vườn dịu dàng dành tặng mọi người phụ nữ nhân ngày 20/10. Tự chọn ảnh để lưu giữ những khoảnh khắc của bạn.">
+<title>Một vườn dịu dàng · 20/10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#38534b;--muted:#6d8072;--cream:#fffdf2;--rose:#ae655f;--line:rgba(63,91,71,.17)}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;color:var(--ink);font-family:'Quicksand',sans-serif;background:#e5efda;overflow:hidden}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid #ad7257;outline-offset:5px}button:disabled{cursor:default}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:manipulation}
+.topbar{position:fixed;top:30px;left:4.3%;right:4.3%;display:flex;align-items:center;justify-content:space-between;z-index:3;gap:12px}.brand{font-size:11px;font-weight:700;letter-spacing:2.7px;text-transform:uppercase;display:flex;align-items:center;gap:12px}.brand svg{width:24px;height:31px}.top-right{display:flex;align-items:center;gap:18px}.counter{font-size:12px;letter-spacing:.2px}.sound{border:1px solid var(--line);background:#fff9;backdrop-filter:blur(12px);border-radius:50%;height:43px;width:43px;display:grid;place-items:center}.sound svg{width:18px;height:18px}.sound[aria-pressed="false"] .sound-waves{opacity:.25}
+.intro{position:fixed;top:15%;left:20px;right:20px;text-align:center;pointer-events:none;z-index:2}.eyebrow{font-size:10px;letter-spacing:3.8px;font-weight:700;text-transform:uppercase;color:#888f6e}.intro h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(45px,6vw,82px);line-height:1.12;letter-spacing:-2px;margin:20px 0 16px}.intro h1 em{color:var(--rose);font-weight:400}.intro .dedication{font-size:13px;line-height:1.9;margin:0;color:var(--muted)}.tiny-flower{display:inline-block;color:#b68c64;margin:17px 0 0;font-size:20px}.instruction{position:fixed;top:47%;left:20px;right:20px;text-align:center;z-index:2;pointer-events:none;font-size:13px;line-height:1.9;color:#5c776a}.instruction p{margin:0}.step{font-size:10px;text-transform:uppercase;letter-spacing:2px;display:block;margin-bottom:7px;color:#8a947b}.dots{display:flex;justify-content:center;gap:7px;margin-top:12px}.dots i{height:5px;width:5px;background:#a4b09a55;border-radius:50%;transition:background .3s,transform .3s}.dots i.on{background:#b88569;transform:scale(1.2)}
+.cloud-target{position:fixed;z-index:4;background:none;border:0;padding:0;border-radius:50%;touch-action:manipulation}.cloud-target:focus-visible{outline-offset:0}.cloud-target[hidden]{display:none}.cloud-label{position:absolute;bottom:-18px;left:0;right:0;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#7b9389;pointer-events:none;white-space:nowrap}.memory-targets{position:fixed;inset:0;pointer-events:none;z-index:3}.memory-target{position:absolute;border:0;border-radius:50%;background:transparent;pointer-events:auto;transform:translate(-50%,-50%)}
+.bottom{position:fixed;bottom:max(26px,env(safe-area-inset-bottom));left:25px;right:25px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:4}.bottom-note{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#4a6b57}.bottom-note span{display:block;font-size:11px;letter-spacing:.2px;text-transform:none;margin-top:7px;opacity:.7}.pill{border:1px solid rgba(80,105,77,.23);background:#fffdf0b8;backdrop-filter:blur(16px);padding:12px 20px;border-radius:40px;font-size:11px;font-weight:600;transition:background .2s,transform .2s}.pill:hover{background:#fffdf2;transform:translateY(-2px)}.pill .arrow{margin-left:15px}.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.controls[hidden]{display:none}
+.veil{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:24px;background:rgba(49,76,62,.18);backdrop-filter:blur(9px);overflow-y:auto}.veil[hidden]{display:none}.dialog{position:relative;width:min(100%,620px);max-height:calc(100dvh - 48px);overflow-y:auto;box-shadow:0 25px 100px #30493924}.close{position:absolute;right:17px;top:14px;border:0;background:#fff9;border-radius:50%;width:33px;height:33px;font-size:23px;line-height:1;z-index:2}.letter{border:1px solid #fff;background:linear-gradient(145deg,#fffef0ee,#f4f8eece);backdrop-filter:blur(24px);border-radius:5px;padding:45px 48px;text-align:center;animation:arrive .65s cubic-bezier(.2,.8,.2,1)}.letter .date{font-size:10px;letter-spacing:4px;color:#a87e58;margin:0 0 18px}.letter .salute{font-size:11px;line-height:1.8;font-weight:600}.letter h2{font:400 clamp(28px,4vw,39px)/1.35 'Playfair Display',serif;letter-spacing:-.7px;margin:20px 0;color:#796154}.letter .body{text-align:left;font-size:12px;line-height:1.95;color:#607467}.letter .signature{font:italic 23px 'Playfair Display',serif;color:#ad7764;margin:22px 0}.letter .pill{background:#e2ebd8}.polaroid{width:min(100%,410px);padding:15px 15px 24px;background:#fffdf5;transform-origin:center;animation:photoIn .65s cubic-bezier(.2,.8,.2,1)}.photo-wrap{background:#e7e9d9;aspect-ratio:1/1;overflow:hidden;display:grid;place-items:center}.photo-wrap img{width:100%;height:100%;object-fit:cover}.caption{font:italic 22px/1.5 'Playfair Display',serif;text-align:center;margin:20px 13px 10px}.photo-count{text-align:center;font-size:10px;letter-spacing:2px;color:#8c9986}.gallery{background:#fffdf0ed;border:1px solid white;padding:35px;border-radius:6px;width:min(100%,850px);animation:arrive .5s ease}.gallery h2{font:400 32px 'Playfair Display',serif;margin:0 0 10px}.gallery>p{font-size:12px;color:var(--muted);margin-bottom:24px}.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.gallery-item{border:0;background:#fff;padding:7px;box-shadow:0 3px 10px #34553310;text-align:left}.gallery-item img{width:100%;aspect-ratio:1;object-fit:cover;display:block}.gallery-item span{display:block;font-size:11px;line-height:1.6;margin:9px 4px}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@keyframes arrive{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:none}}@keyframes photoIn{from{opacity:0;transform:translate(var(--from-x,0),var(--from-y,80px)) scale(.12) rotate(-9deg)}to{opacity:1;transform:translate(0) scale(1) rotate(-2deg)}}
+@media(max-width:600px){.topbar{top:20px;left:22px;right:20px}.brand{font-size:9px;letter-spacing:1.4px;gap:8px}.top-right{gap:9px}.counter{font-size:10px;max-width:110px;text-align:right}.sound{width:36px;height:36px}.intro{top:16%}.intro h1{font-size:49px;letter-spacing:-1.7px;margin-top:18px}.intro .dedication{font-size:11px}.eyebrow{font-size:9px;letter-spacing:2.5px}.instruction{top:46%;font-size:11px;left:32px;right:32px}.bottom{left:16px;right:16px;bottom:max(18px,env(safe-area-inset-bottom));justify-content:center;flex-wrap:wrap;gap:10px}.bottom-note{display:none}.pill{font-size:10px;padding:11px 14px}.letter{padding:35px 25px}.letter .body{font-size:11px}.gallery{padding:30px 20px}.gallery-grid{grid-template-columns:repeat(2,1fr);gap:10px}.veil{padding:18px}.dialog{max-height:calc(100dvh - 36px)}}
+@media(max-height:650px){.intro{top:13%}.intro h1{font-size:43px;margin:10px 0}.tiny-flower{display:none}.instruction{top:43%}.letter{padding-top:25px;padding-bottom:25px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.intro .dedication,.instruction{color:#405e52}.eyebrow,.step{color:#657858}.bottom{flex-wrap:wrap}.bottom-note{color:#eff5df;text-shadow:0 1px 6px #274e38}.bottom-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.photo-editor{padding:9px;background:#fffaf0;border:1px solid #d3dbc9;border-radius:5px}.photo-editor .photo-wrap{aspect-ratio:4/3}.photo-editor label{display:block;font-size:11px;font-weight:600;margin:10px 0 6px}.photo-editor input[type=file]{width:100%;font:10px 'Quicksand',sans-serif}.photo-editor input[type=text]{width:100%;font:12px 'Quicksand',sans-serif;color:var(--ink);padding:9px;border:1px solid #ccd6c5;border-radius:4px;background:#fff}.editor-status{font-size:11px;line-height:1.7;min-height:20px;color:#58734f}.editor-footer{margin-top:20px;display:flex;justify-content:flex-end}.gallery:has(.editor-grid){width:min(100%,700px)}
+.intro{top:12%}.intro h1{font-size:clamp(42px,5vw,58px);margin:14px 0 10px}.tiny-flower{display:none}.instruction{top:43%}
+@media(max-width:600px){.bottom{gap:7px}.controls{gap:5px}.bottom-actions{gap:6px}.bottom .pill{padding:10px 12px}.editor-grid{gap:10px}.photo-editor{padding:6px}}
+@media(max-width:600px) and (min-height:651px){.intro{top:15%}.intro h1{font-size:47px}.instruction{top:44%}}
+@media(max-height:650px){.intro h1{font-size:39px;margin:10px 0}.instruction{font-size:11px;line-height:1.6}.intro .dedication{font-size:11px}}
+/* The opening scene stays quiet; the first drop reveals the small greeting. */
+body:not(.started) .topbar,body:not(.watered) .bottom{visibility:hidden;pointer-events:none}
+.bottom{justify-content:center}
+.intro{top:13%}.intro h1{font-size:clamp(30px,4vw,45px);line-height:1.2;letter-spacing:-1px;margin:0}.intro .eyebrow,.intro .dedication,.instruction .step,.bottom-note,.cloud-label{display:none}
+.instruction{top:calc(13% + 70px);font-size:12px;line-height:1.7}.dots{margin-top:9px}
+.intro.revealed,.instruction.revealed{animation:arrive 1s ease both}
+@media(max-width:600px){.intro{top:15%}.intro h1{font-size:33px}.instruction{top:calc(15% + 58px);font-size:11px;left:24px;right:24px}}
+@media(max-height:650px){.intro{top:12%}.intro h1{font-size:32px}.instruction{top:calc(12% + 52px)}}
+/* Phone-first controls and dialogs: readable text, safe areas, 44px touch targets. */
+@media(max-width:600px){
+ body{height:100dvh;overscroll-behavior:none}
+ .topbar{top:calc(env(safe-area-inset-top) + 12px);left:14px;right:14px;gap:8px}
+ .brand{font-size:8px;letter-spacing:.7px;gap:6px}.brand svg{width:20px;height:27px;flex-shrink:0}
+ .top-right{gap:8px}.counter{font-size:10px;max-width:100px;line-height:1.5}.sound{width:44px;height:44px;flex-shrink:0}
+ .intro{top:max(88px,14dvh);left:16px;right:16px}.intro h1{font-size:clamp(27px,8vw,33px);line-height:1.25}
+ .instruction{top:calc(max(88px,14dvh) + 48px);font-size:12px;left:18px;right:18px}
+ .bottom{left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 24px);max-width:440px;bottom:calc(env(safe-area-inset-bottom) + 12px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .bottom .controls,.bottom .bottom-actions{display:contents}
+ .bottom .pill{width:100%;min-height:44px;padding:10px 8px;font-size:12px;line-height:1.4}.pill .arrow{margin-left:5px}
+ .veil{padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px)}
+ .dialog{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border-radius:12px}
+ .close{width:44px;height:44px;top:8px;right:8px;font-size:28px}
+ .letter{padding:55px 23px 24px}.letter .body{font-size:14px;line-height:1.85}.letter .salute{font-size:12px}.letter h2{font-size:29px;margin:18px 0}.letter .date{font-size:9px;letter-spacing:2px}.letter .pill{min-height:44px;font-size:13px}
+ .gallery{padding:58px 16px 22px}.gallery h2{font-size:28px}.gallery>p{font-size:13px;line-height:1.7}.gallery-item span{font-size:12px}
+ .editor-grid{grid-template-columns:1fr;gap:16px}.photo-editor{padding:10px}.photo-editor label{font-size:13px}.photo-editor input[type=text]{font-size:16px;min-height:44px}.photo-editor input[type=file]{font-size:13px;min-height:44px;padding:8px 0}.editor-footer .pill{min-height:44px;font-size:13px}
+ .polaroid{padding:12px 12px 20px}.polaroid .photo-wrap{max-height:55dvh}.caption{font-size:21px;margin:16px 8px 10px}
+}
+/* Soft paper surfaces and a consistent set of garden controls. */
+:root{--button-shadow:0 3px 8px #253f3210,0 12px 28px #253f3210;--rose-soft:#f5e6dd}
+button,input{ -webkit-tap-highlight-color:transparent }
+button:focus-visible,input:focus-visible{outline:3px solid #a36950;outline-offset:4px}
+.topbar{gap:16px}.brand{letter-spacing:2px}.counter{padding:9px 13px;border:1px solid #ffffff65;border-radius:30px;background:#fffdf04d;color:#38534b;font-weight:600;backdrop-filter:blur(12px)}
+.sound{height:44px;width:44px;border-color:#ffffffa6;background:#fffdf0b8;box-shadow:0 4px 14px #30493910;transition:background .2s,transform .2s,box-shadow .2s}
+.sound:hover{background:#fffdf2;box-shadow:var(--button-shadow);transform:translateY(-2px)}.sound:active{transform:scale(.94)}.sound[aria-pressed="true"]{background:#385b4b;color:#fff9e9;border-color:#385b4b}
+.bottom{gap:9px;padding:9px;width:max-content;max-width:calc(100% - 40px);left:50%;right:auto;transform:translateX(-50%);border:1px solid #ffffff7a;border-radius:30px;background:#f8f8eeb5;box-shadow:0 10px 40px #193b2c1c;backdrop-filter:blur(20px)}
+.controls,.bottom-actions{gap:7px}.pill{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 18px;border:1px solid #b7c6b3;border-radius:22px;background:#fffdf4;color:#38534b;font-size:12px;font-weight:600;line-height:1.4;box-shadow:0 2px 4px #36533d08;transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.pill:hover{background:#fffef8;border-color:#8da48b;box-shadow:var(--button-shadow);transform:translateY(-2px)}.pill:active{transform:translateY(0) scale(.97);box-shadow:none}.pill:disabled{opacity:.55;transform:none;box-shadow:none}.pill .arrow{margin-left:3px;font-size:15px;opacity:.75}
+.button-icon{width:17px;height:17px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#wish,#back-garden,#finish-photos{background:#385b4b;border-color:#385b4b;color:#fffcef;box-shadow:0 4px 12px #294b3826}
+#wish:hover,#back-garden:hover,#finish-photos:hover{background:#2d4d3e;border-color:#2d4d3e}
+#choose-photos{background:var(--rose-soft);border-color:#dbc0ae;color:#795645}#choose-photos:hover{background:#f9ece4;border-color:#be9680}
+#reset{background:transparent;border-color:transparent;color:#647362}#reset:hover{background:#e7eddf;border-color:#c8d3bf}
+.veil{background:#243e314d;backdrop-filter:blur(12px)}.dialog{border:1px solid #fffaf0;border-radius:20px;box-shadow:0 30px 90px #18372940;scrollbar-width:thin;scrollbar-color:#bac7ad transparent}
+.close{display:grid;place-items:center;width:44px;height:44px;right:12px;top:12px;border:1px solid #cbd5c280;background:#fffdf0ec;color:#63775e;font-size:25px;transition:transform .2s,background .2s,box-shadow .2s}.close:hover{background:#f1e4d9;box-shadow:0 3px 12px #30493915;transform:rotate(8deg)}.close:active{transform:scale(.93)}
+.letter{background:linear-gradient(145deg,#fffef5,#f0f4e8);padding:48px 48px 34px}.letter .body{font-size:13px;line-height:1.95}.letter .date{color:#936a4e}.letter .signature{margin:25px 0}.letter h2{color:#725947}
+.gallery{padding:42px 30px 28px;background:linear-gradient(145deg,#fffef5,#f3f6ec)}.gallery h2{padding-right:30px;line-height:1.25}.gallery>p{line-height:1.8}.gallery-grid{gap:17px}.gallery-item{border:1px solid #e1e6d7;border-radius:12px;padding:8px;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}.gallery-item img{border-radius:7px}.gallery-item:hover{transform:translateY(-4px);box-shadow:0 10px 24px #34553318;border-color:#acbda0}.gallery-item:active{transform:scale(.98)}.gallery-item span{color:#52664d}
+.photo-editor{padding:12px;border-radius:12px;border-color:#d9e0ce;background:#fffef8}.photo-editor .photo-wrap{border-radius:7px}.photo-editor input[type=text]{border-radius:8px;background:#fffefb;min-height:44px;padding:11px;border-color:#cbd5c1;transition:border-color .2s,box-shadow .2s}.photo-editor input[type=text]:focus{border-color:#829a73;box-shadow:0 0 0 3px #829a7318}.photo-editor input[type=file]{font-size:12px;min-height:44px;cursor:pointer}.photo-editor input[type=file]::file-selector-button{font:inherit;font-weight:600;color:#49613f;background:#eaf0e1;border:1px solid #c7d4ba;border-radius:8px;padding:10px 12px;margin-right:9px;cursor:pointer}.photo-editor input[type=file]::file-selector-button:hover{background:#dfe9d3}.editor-status{padding:12px 14px;border-radius:10px;background:#eaf0e2;color:#49613f}.editor-footer{margin-top:18px}
+.polaroid{border-radius:14px;background:#fffdf5}.polaroid .photo-wrap{border-radius:6px}.photo-count{color:#6c7b61;line-height:1.8}.caption{color:#725947}
+.memory-target:focus-visible{background:#fff8dc20;outline:2px solid #fff4c2;outline-offset:6px;box-shadow:0 0 24px #fff4c255}
+@media(max-width:600px){
+ .topbar{gap:8px}.brand{letter-spacing:.6px}.top-right{gap:6px}.counter{font-size:10px;max-width:105px;padding:6px 9px}.sound{width:44px;height:44px}
+ .bottom{width:calc(100% - 24px);max-width:440px;padding:8px;gap:7px;border-radius:23px;bottom:calc(env(safe-area-inset-bottom) + 10px)}
+ .bottom .pill{min-height:46px;padding:10px 8px;font-size:11px;gap:6px;border-radius:16px}.bottom .button-icon{width:16px;height:16px}.bottom .arrow{display:none}
+ .letter{padding:58px 23px 26px}.letter .body{font-size:14px}.gallery{padding:62px 16px 22px}.gallery-grid{gap:10px}.gallery-item{padding:6px}.gallery-item span{font-size:12px}.gallery h2{padding-right:0}.photo-editor{padding:10px}.photo-editor input[type=file]{font-size:12px}.photo-editor input[type=text]{font-size:16px}.editor-footer .pill{width:100%}
+}
+@media(max-height:500px) and (orientation:landscape){.bottom{bottom:8px;padding:5px;gap:5px}.bottom .pill{min-height:40px;padding:8px 10px;font-size:10px}.bottom .button-icon{width:14px;height:14px}.intro{top:14%}.instruction{top:calc(14% + 48px)}}
+.photo-picker{padding:18px;margin:0 0 20px;background:#eaf0e2;border:1px dashed #9dad8e;border-radius:14px}.photo-picker label{display:block;font-size:14px;font-weight:700;margin-bottom:12px}.photo-picker input{display:block;width:100%;font:13px 'Quicksand',sans-serif;min-height:44px}.photo-picker input::file-selector-button{font:inherit;color:#fffcef;background:#385b4b;border:0;border-radius:9px;padding:12px 15px;margin-right:10px;cursor:pointer}.photo-picker input:disabled{opacity:.5}.photo-picker p{font-size:11px;line-height:1.8;margin:10px 0}.photo-picker #selected-count{font-size:12px;font-weight:700}.remove-photo{margin-top:12px;min-height:44px;color:#99564b;background:#fbefea;border-color:#e1c6ba;font-size:11px}.remove-photo:hover{background:#f7e0d6}
+.editor-caption{font:italic 15px/1.65 'Playfair Display',serif;color:#796154;margin:14px 2px 4px}
+/* Scene controls stay available, including before the first watering. */
+body:not(.started) .topbar{visibility:visible;pointer-events:auto}
+.topbar{align-items:center;flex-wrap:wrap}.top-right{gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.theme-switch{display:flex;gap:3px;padding:3px;border:1px solid #ffffffa0;border-radius:25px;background:#fffdf0e8;box-shadow:0 4px 16px #203a3212}
+.theme-switch button{min-width:48px;min-height:44px;padding:8px 12px;border:0;border-radius:21px;background:transparent;color:#47604b;font-size:12px;font-weight:600}
+.theme-switch button[aria-pressed="true"]{background:#385b4b;color:#fffcef;box-shadow:0 2px 6px #294b3826}
+.theme-switch button:hover{box-shadow:inset 0 0 0 1px #9dad8e}.motion-control{font-size:18px}.motion-control:disabled{opacity:.65}
+body[data-time="dusk"] .brand,body[data-time="night"] .brand{color:#fff5de;text-shadow:0 1px 4px #172436}
+body[data-time="dusk"] .intro,body[data-time="night"] .intro{color:#fff7df}
+body[data-time="dusk"] .intro em,body[data-time="night"] .intro em{color:#ffd4cb}
+body[data-time="dusk"] .instruction,body[data-time="night"] .instruction{color:#fff1d4;text-shadow:0 1px 5px #142535}
+.brand svg path{stroke:currentColor}.counter{background:#fffdf0e8;color:#38534b}
+.cloud-label{display:block;color:#38534b;font-size:10px;letter-spacing:1px;background:#fffdf0e8;padding:7px 10px;border-radius:16px;bottom:-37px;left:50%;right:auto;transform:translateX(-50%)}
+body.started .cloud-label{display:none}canvas,.memory-target{touch-action:pinch-zoom}
+.polaroid{transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) rotateZ(-1.5deg);transition:transform .18s ease-out;animation:polaroidArrival .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes polaroidArrival{from{opacity:0;transform:perspective(1000px) translate(var(--from-x,0px),var(--from-y,70px)) rotateX(18deg) rotateY(-24deg) rotateZ(-9deg) scale(.3)}to{opacity:1;transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) rotateZ(-1.5deg)}}
+.photo-editor .editor-caption{font:14px/1.5 'Quicksand',sans-serif;color:#38534b;margin:0;min-height:44px}.photo-editor .caption-label{margin-top:14px}
+.instruction p{display:inline-block;padding:7px 14px;border:1px solid #ffffff80;border-radius:18px;background:#fffdf0eb;color:#38534b;text-shadow:none}
+.memory-target:focus-visible{outline:2px solid #fff4c2;box-shadow:0 0 0 5px #385b4b}
+@media(max-width:800px){.topbar{display:grid;grid-template-columns:1fr auto;gap:8px;top:calc(env(safe-area-inset-top) + 12px);left:14px;right:14px}.top-right{grid-column:1/-1;justify-content:center;gap:7px}.brand{font-size:9px;letter-spacing:.6px}.brand svg{width:20px;height:26px}.counter{font-size:10px;max-width:145px;text-align:right;padding:6px 10px}.theme-switch button{padding:7px 10px;font-size:11px}.intro{top:max(146px,19dvh)}.instruction{top:calc(max(146px,19dvh) + 53px)}}
+@media(max-height:500px) and (orientation:landscape){.topbar{display:flex;top:8px;left:12px;right:12px;gap:5px;justify-content:space-between}.brand{max-width:100px;font-size:8px}.counter{display:none}.top-right{gap:5px}.theme-switch{padding:0}.theme-switch button{padding:5px 8px;min-height:44px}.intro{top:75px}.intro h1{font-size:27px}.instruction{top:118px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.polaroid{animation:none!important;transform:none!important;transition:none!important}.pill:hover,.sound:hover,.gallery-item:hover,.close:hover{transform:none}}
+body[data-motion="paused"] .polaroid{animation:none;transform:none;transition:none}
+/* Phone layout: keep the garden clear and the controls within thumb reach. */
+.veil{inset:auto 0 auto;top:var(--visible-top,0px);height:var(--visible-height,100dvh)}
+@media(max-width:600px){
+ html,body{width:100%;min-height:100%;overscroll-behavior-y:none}
+ .topbar{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));top:calc(env(safe-area-inset-top) + 10px);gap:8px}
+ .brand{min-width:0;font-size:10px;letter-spacing:.1px;gap:5px}.brand svg{width:18px;flex-shrink:0}
+ .counter{font-size:11px;max-width:142px;padding:6px 9px;line-height:1.5;backdrop-filter:none}
+ .top-right{width:100%;gap:7px;flex-wrap:nowrap}.theme-switch{flex:1;min-width:0;padding:3px;gap:2px;border-radius:27px}.theme-switch button{flex:1;min-width:42px;min-height:48px;padding:8px 5px;font-size:12px;white-space:nowrap}.top-right .sound{width:48px;height:48px;flex:0 0 48px;backdrop-filter:none}
+ .intro{top:calc(env(safe-area-inset-top) + max(124px,16svh));left:14px;right:14px}.intro h1{font-size:clamp(27px,7.7vw,33px);line-height:1.2}
+ .instruction{top:calc(env(safe-area-inset-top) + max(124px,16svh) + 45px);left:16px;right:16px;font-size:12px;line-height:1.6}.instruction p{max-width:100%;padding:7px 12px}.dots{margin-top:7px}
+ .bottom{width:calc(100% - 24px);max-width:440px;gap:7px;padding:8px;bottom:calc(env(safe-area-inset-bottom) + 10px);border-radius:24px;background:#f8faefed;backdrop-filter:blur(8px)}
+ .bottom .pill{min-height:48px;padding:10px 7px;font-size:12px;gap:6px;border-radius:16px;backdrop-filter:none;box-shadow:none}.bottom .button-icon{width:17px;height:17px}
+ .veil{align-items:flex-end;justify-items:center;display:flex;justify-content:center;padding:calc(env(safe-area-inset-top) + 10px) 0 0;backdrop-filter:blur(5px)}
+ .dialog{width:100%;max-width:560px;max-height:100%;margin:0;border-radius:24px 24px 0 0;padding-bottom:calc(env(safe-area-inset-bottom) + 22px);scroll-padding:62px 12px 24px;backdrop-filter:none}
+ .dialog .close{position:sticky;float:right;top:10px;right:auto;width:48px;height:48px;margin:-44px -2px 0 8px;background:#fffdf2;box-shadow:0 2px 10px #294b3820}
+ .gallery,.letter{padding-top:62px;padding-left:20px;padding-right:20px;background:#fbfcf3}.gallery h2{font-size:28px;padding-right:34px}.gallery>p{font-size:14px;line-height:1.75}.letter .body{font-size:14px;line-height:1.9}.letter .pill{width:100%;min-height:48px}
+ .editor-grid{grid-template-columns:minmax(0,1fr);gap:18px}.photo-editor{min-width:0;padding:12px}.photo-editor label{font-size:13px}.photo-editor input.editor-caption{font-size:16px;min-height:48px}.photo-editor input[type=file],.photo-picker input{min-width:0;max-width:100%;font-size:13px;min-height:48px}.photo-editor input[type=file]::file-selector-button,.photo-picker input::file-selector-button{min-height:44px;max-width:100%;padding:10px 12px}.remove-photo{min-height:48px;font-size:13px}.editor-footer .pill{width:100%;min-height:48px}
+ .photo-picker{padding:14px}.photo-picker p{font-size:12px}.editor-status{font-size:13px}
+ .polaroid{width:calc(100% - 28px);max-width:410px;margin:auto;border-radius:18px;padding:12px 12px 20px;max-height:calc(100% - 24px);background:#fffdf5;transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) rotateZ(-1deg)}
+ .polaroid .close{position:absolute;float:none;right:17px;top:17px;margin:0}.polaroid .photo-wrap{max-height:min(48dvh,360px)}.polaroid .caption{font-size:20px;line-height:1.55;margin:15px 8px 8px}.photo-count{font-size:10px;padding:0 6px}
+}
+@media(max-width:1000px) and (max-height:500px) and (orientation:landscape){
+ .topbar{display:flex;top:calc(env(safe-area-inset-top) + 6px);left:12px;right:12px;gap:8px}.brand{max-width:140px;font-size:9px}.counter{display:none}.top-right{width:auto;flex-wrap:nowrap;gap:6px}.theme-switch{flex:none;padding:2px}.theme-switch button{min-height:44px;padding:6px 9px;font-size:11px}.top-right .sound{width:44px;height:44px;flex:0 0 44px}
+ .intro{top:76px;left:14px;right:auto;width:46%}.intro h1{font-size:26px}.instruction{top:114px;left:14px;right:auto;width:46%;font-size:11px}.instruction p{padding:5px 12px}.dots{margin-top:5px}
+ .bottom{display:flex;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100% - 24px);padding:6px;gap:6px;bottom:calc(env(safe-area-inset-bottom) + 6px)}.bottom .controls,.bottom .bottom-actions{display:contents}.bottom .pill{width:auto;min-height:44px;padding:8px 10px;font-size:11px}
+ .veil{padding:8px}.dialog{max-height:100%;border-radius:18px}.polaroid{width:min(100%,320px);padding:10px 10px 14px}.polaroid .photo-wrap{max-height:46dvh}.polaroid .caption{font-size:17px;margin:10px 8px 6px}
+ .gallery,.letter{padding:62px 20px calc(env(safe-area-inset-bottom) + 22px)}.letter .body,.gallery>p{font-size:14px}.photo-editor input.editor-caption{font-size:16px;min-height:48px}
+ .dialog .close{position:sticky;float:right;top:8px;right:auto;width:48px;height:48px;margin:-44px -2px 0 8px}.polaroid .close{position:absolute;float:none;top:14px;right:14px;margin:0}
+}
+@media(hover:none){.pill:hover,.sound:hover,.gallery-item:hover,.close:hover{transform:none}.polaroid{transition:none}}
+</style>
+</head>
+<body data-time="day">
+<canvas id="garden" aria-hidden="true"></canvas>
+<header class="topbar">
+ <div class="brand"><svg viewBox="0 0 28 36" fill="none" aria-hidden="true"><path d="M14 33V16M14 29C6 30 3 24 4 21c7 0 10 5 10 8Zm0-5c8 0 11-6 10-9-7 0-10 6-10 9Z"/><path d="M14 18C4 18 4 8 5 4l6 4 3-6 3 6 6-4c1 5 1 14-9 14Z"/></svg>Một vườn dịu dàng</div>
+ <span class="counter" id="counter" aria-live="polite">Khu vườn của bạn</span>
+ <div class="top-right">
+  <div class="theme-switch" role="group" aria-label="Ánh sáng khu vườn">
+   <button type="button" data-theme="day" aria-pressed="true">Ngày</button>
+   <button type="button" data-theme="dusk" aria-pressed="false">Hoàng hôn</button>
+   <button type="button" data-theme="night" aria-pressed="false">Đêm</button>
+  </div>
+  <button type="button" class="sound motion-control" id="motion" aria-label="Tạm dừng chuyển động" aria-pressed="false"><span aria-hidden="true">Ⅱ</span></button>
+  <button type="button" class="sound" id="sound" aria-label="Bật âm thanh, gồm nhạc và hiệu ứng" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><g class="sound-waves"><path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></g></svg></button>
+ </div>
+</header>
+<main><div class="intro" id="greeting" hidden><h1>Một vườn <em>dịu dàng.</em></h1></div>
+<div class="instruction" id="guidance" aria-live="polite" hidden><span class="step" id="step"></span><p id="instruction"></p><div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+<button id="cloud" class="cloud-target" aria-label="Chạm vào đám mây để tưới nước, lần 1 trên 3"><span class="cloud-label">Chạm mây để tưới ↓</span></button>
+<p class="sr-only" id="garden-help">Di chuột hoặc vuốt trên vườn để tạo gió. Sau khi hoa nở, dùng Tab để vào vườn hoa, các phím mũi tên để chọn hoa, Home hoặc End để đến đầu hoặc cuối; Enter hoặc phím cách để chạm hoa. Hoa có ảnh sẽ mở kỷ niệm; các hoa khác tỏa sáng và phát nốt nhạc khi âm thanh được bật. Chạm hoa có bướm đậu để bướm bay lên.</p>
+<div id="memory-targets" class="memory-targets" role="group" aria-label="Vườn hoa tương tác" aria-describedby="garden-help"></div>
+</main>
+<footer class="bottom" aria-label="Điều khiển khu vườn"><div class="controls" id="controls" hidden><button class="pill" id="reread">Đọc lại lời chúc</button><button class="pill" id="gallery-button">Bộ ảnh của bạn</button><button class="pill" id="reset">Tưới lại từ đầu</button></div><div class="bottom-actions"><button class="pill" id="choose-photos">Chọn ảnh của bạn</button><button class="pill" id="wish">Lời chúc 20/10 <span class="arrow" aria-hidden="true">↗</span></button></div></footer>
+<div class="veil" id="overlay" hidden></div>
+<p class="sr-only" id="interaction-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<script>
+// Có thể giữ vườn không ảnh hoặc chọn tối đa 5 ảnh trong phiên trình duyệt này.
+const MAX_PHOTOS=5;
+const FAMILY_PHOTOS=[];
+const DEFAULT_PHOTO_CAPTIONS=[
+ 'Mong bạn luôn được yêu thương như cách bạn xứng đáng.',
+ 'Dành một chút dịu dàng cho chính mình hôm nay.',
+ 'Nụ cười của bạn làm một ngày bình thường hóa đẹp.',
+ 'Chúc bạn luôn rạng rỡ, bình yên và hạnh phúc.',
+ 'Mong những ước mơ của bạn luôn có chỗ để nở hoa.'
+];
+const $ = id => document.getElementById(id);
+const canvas=$('garden'),ctx=canvas.getContext('2d'),cloud=$('cloud'),overlay=$('overlay');
+const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
+const touchPreference=matchMedia('(pointer: coarse)');
+let reduced=motionPreference.matches,motionPaused=false,motionTime=0,theme='day';
+const motionEnabled=()=>!reduced&&!motionPaused;
+const colors=[['#ffeaa3','#efb52e','#b67c22'],['#ffe0ce','#f18e80','#c75d64'],['#ffd5ab','#ee8055','#bf4d48'],['#e8d8fb','#ac88d0','#7954a3'],['#ffc6d4','#e86589','#ad3e65']];
+let W=innerWidth,H=innerHeight,dpr=1,flowers=[],particles=[],ripples=[],taps=0,tapAt=-10,firstWaterAt=null,bloomAt=null,found=new Set(),hover=-1,now=0,last=0,cloudPos={x:0,y:0},modalType='',lastFocus=null,letterSeen=false,autoLetter=false;
+const compactScene=()=>W<=600||(touchPreference.matches&&W<=1024);
+const touchFlower=f=>f.photo>=0||f.mobileInteractive;
+let footerInset=96,lastPaint=0,sceneCeiling=0;
+const landscapePhone=()=>compactScene()&&W>H&&H<=500;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const rand=(a,b)=>a+Math.random()*(b-a);
+const wind={x:0,y:0,force:0};
+let pointerSample=null,ignoreClickUntil=0,rovingFlower=null;
+function announce(message){$('interaction-status').textContent=message}
+function updateMotionControl(){
+ const paused=reduced||motionPaused;
+ document.body.dataset.motion=paused?'paused':'running';
+ $('motion').disabled=reduced;
+ $('motion').setAttribute('aria-pressed',String(paused));
+ $('motion').setAttribute('aria-label',reduced?'Chuyển động được giảm theo cài đặt thiết bị':paused?'Tiếp tục chuyển động':'Tạm dừng chuyển động');
+ $('motion').firstElementChild.textContent=paused?'▷':'Ⅱ';
+ if(paused){wind.force=0;pointerSample=null;particles=[];ripples=[]}
+}
+$('motion').onclick=()=>{motionPaused=!motionPaused;updateMotionControl()};
+motionPreference.addEventListener('change',event=>{reduced=event.matches;updateMotionControl()});
+updateMotionControl();
+function makeFlowers(){
+ flowers=[];
+ for(let layer=0;layer<3;layer++)for(let i=0,count=compactScene()&&layer<2?8:14;i<count;i++){
+  const x=(i+.25+Math.random()*.5)/count;
+  flowers.push({x,layer,height:rand(.20,.28)+layer*.015,size:rand(22,29)+layer*4,base:rand(.85,.91)+layer*.012,color:Math.floor(rand(0,5)),phase:rand(0,6.28),delay:Math.abs(x-.5)*2+rand(.1,.7),photo:-1});
+ }
+ flowers.push({x:.5,layer:3,height:.26,size:46,base:.85,color:1,phase:0,delay:0,photo:0,main:true});
+ const picks=[ [.12,.25],[.28,.4],[.6,.72],[.78,.9] ];
+ picks.forEach((range,i)=>{const options=flowers.filter(f=>!f.main&&f.layer===2&&f.x>=range[0]&&f.x<=range[1]);const f=options[Math.floor(Math.random()*options.length)];if(f)f.photo=i+1;});
+ $('memory-targets').replaceChildren();
+ rovingFlower=flowers.find(f=>f.main);
+ flowers.filter(f=>f.layer>=2).forEach((f,i)=>{
+  f.mobileInteractive=i%3===0;
+  const b=document.createElement('button');b.type='button';b.className='memory-target';b.hidden=true;b.tabIndex=f===rovingFlower?0:-1;
+  b.setAttribute('aria-label',`Chạm hoa Tulip ${i+1} để tỏa sáng`);
+  b.addEventListener('click',event=>{if(!event.detail||performance.now()>ignoreClickUntil)activateFlower(f)});
+  b.addEventListener('mouseenter',()=>f.hovered=true);b.addEventListener('mouseleave',()=>f.hovered=false);
+  b.addEventListener('focus',()=>{f.hovered=true;rovingFlower=f;flowers.forEach(other=>{if(other.button)other.button.tabIndex=other===f?0:-1})});
+  b.addEventListener('blur',()=>f.hovered=false);$('memory-targets').append(b);f.button=b;
+ });
+}
+function measureFooter(){const bounds=document.querySelector('footer').getBoundingClientRect();footerInset=Math.max(0,H-bounds.top)+18}
+function measureScene(){const guidance=$('guidance'),header=document.querySelector('header');sceneCeiling=guidance.hidden?header.offsetTop+header.offsetHeight+12:guidance.offsetTop+guidance.offsetHeight+12}
+function updateVisibleViewport(){
+ const viewport=window.visualViewport,normalScale=!viewport||Math.abs(viewport.scale-1)<.01;
+ document.documentElement.style.setProperty('--visible-height',normalScale&&viewport?`${viewport.height}px`:'100dvh');
+ document.documentElement.style.setProperty('--visible-top',normalScale&&viewport?`${viewport.offsetTop}px`:'0px');
+}
+function resize(){
+ W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,compactScene()?1.5:2);
+ const pixelWidth=Math.round(W*dpr),pixelHeight=Math.round(H*dpr);
+ if(canvas.width!==pixelWidth||canvas.height!==pixelHeight){canvas.width=pixelWidth;canvas.height=pixelHeight;ctx.setTransform(dpr,0,0,dpr,0,0)}
+ if(compactScene()&&rovingFlower&&!touchFlower(rovingFlower)){rovingFlower=flowers.find(f=>f.main);flowers.forEach(f=>{if(f.button)f.button.tabIndex=f===rovingFlower?0:-1})}
+ updateVisibleViewport();measureFooter();measureScene();
+}
+addEventListener('resize',resize);resize();makeFlowers();
+if(window.visualViewport){window.visualViewport.addEventListener('resize',updateVisibleViewport);window.visualViewport.addEventListener('scroll',updateVisibleViewport)}
+if('ResizeObserver' in window){
+ new ResizeObserver(measureFooter).observe(document.querySelector('footer'));
+ const sceneObserver=new ResizeObserver(measureScene);sceneObserver.observe($('guidance'));sceneObserver.observe(document.querySelector('header'));
+}
+function ellipse(x,y,rx,ry,fill){ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill()}
+function groundY(){return compactScene()?Math.min(H*.86,H-footerInset):H*.85}
+const SCENES={
+ day:{label:'Ngày',sky:['#e5dfcb','#d5dac6','#9fbdaa','#547e6e'],hills:['#7e9e80','#6b936b','#4b735d'],night:0,meta:'#c4d3bf'},
+ dusk:{label:'Hoàng hôn',sky:['#554467','#ac6d80','#dcaa83','#536f64'],hills:['#8f7c78','#716b6b','#4d5c59'],night:.55,meta:'#554467'},
+ night:{label:'Đêm',sky:['#111c32','#1e3045','#284f58','#274e49'],hills:['#314e59','#2b4852','#233e46'],night:1,meta:'#111c32'}
+};
+const rgb=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
+const sceneColors=[...SCENES.day.sky,...SCENES.day.hills].map(rgb);
+let nightBlend=0;
+function setTheme(next){
+ if(!SCENES[next])return;
+ theme=next;document.body.dataset.time=next;
+ document.querySelectorAll('[data-theme]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===next)));
+ document.querySelector('meta[name="theme-color"]').content=SCENES[next].meta;
+ announce(`Ánh sáng: ${SCENES[next].label}${next==='night'?'. Những hạt sáng hóa thành đom đóm.':'.'}`);
+}
+document.querySelectorAll('[data-theme]').forEach(button=>button.onclick=()=>setTheme(button.dataset.theme));
+function updateScene(dt){
+ const target=SCENES[theme],blend=motionEnabled()?1-Math.exp(-dt*3):1;
+ [...target.sky,...target.hills].map(rgb).forEach((color,i)=>color.forEach((value,j)=>{sceneColors[i][j]+=(value-sceneColors[i][j])*blend}));
+ nightBlend+=(target.night-nightBlend)*blend;
+}
+function background(t){
+ const color=i=>`rgb(${sceneColors[i].map(Math.round).join(',')})`;
+ const sky=ctx.createLinearGradient(0,0,0,H);[0,.37,.66,1].forEach((stop,i)=>sky.addColorStop(stop,color(i)));ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+ ctx.save();
+ const sun=ctx.createRadialGradient(W*.77,H*.20,2,W*.77,H*.20,W*.37);sun.addColorStop(0,`rgba(255,238,185,${.18*(1-nightBlend)})`);sun.addColorStop(1,'#fff9cf00');ctx.fillStyle=sun;ctx.fillRect(0,0,W,H);
+ if(nightBlend>.05){
+  ctx.globalAlpha=nightBlend;ellipse(W*.8,H*.27,16,16,'#f5edc7');ellipse(W*.8+7,H*.27-5,14,14,color(0));
+  for(let i=0;i<(compactScene()?20:36);i++){const x=((i*173.37+59)%997)/997*W,y=H*(.11+(i%8)*.037);ellipse(x,y,i%4===0?1.2:.7,i%4===0?1.2:.7,'#fff8deaa')}
+ }
+ ctx.restore();
+ for(let j=0;j<3;j++){ctx.beginPath();ctx.moveTo(0,H);ctx.lineTo(0,H*(.81+j*.045));ctx.bezierCurveTo(W*.28,H*(.76+j*.05),W*.6,H*(.94+j*.015),W,H*(.8+j*.055));ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=color(j+4);ctx.globalAlpha=.35+j*.1;ctx.fill()}ctx.globalAlpha=1;
+ for(let i=0;i<(compactScene()?50:95);i++){const x=(i*137.508)%W,y=H*.94+(i%9)*H*.008;ctx.beginPath();ctx.moveTo(x,H+5);ctx.quadraticCurveTo(x-8,y-16,x+Math.sin(t*.6+i)*4,y-23);ctx.strokeStyle='#a8bd8a40';ctx.lineWidth=1;ctx.stroke()}
+ for(let i=0;i<(compactScene()?14:24);i++){
+  const x=((i*173.3+t*(3+i%3))%(W+40))-20,y=H*(.37+(i%8)*.065)+Math.sin(t*.4+i)*15;
+  const pulse=motionEnabled()?.2+.8*Math.pow((1+Math.sin(t*1.6+i*2.4))/2,2):.65;
+  if(nightBlend>.04){const glow=ctx.createRadialGradient(x,y,0,x,y,11);glow.addColorStop(0,`rgba(225,255,145,${nightBlend*pulse*.55})`);glow.addColorStop(1,'#deff9100');ctx.fillStyle=glow;ctx.fillRect(x-11,y-11,22,22)}
+  ctx.save();ctx.globalAlpha=(1-nightBlend)*.6+nightBlend*pulse;ellipse(x,y,1.2+nightBlend*.5,1.2+nightBlend*.5,nightBlend>.3?'#e6ffab':'#fffdf4');ctx.restore();
+ }
+}
+// Local gusts drive a critically damped angular spring on every stem.
+function windAngle(f,dt,x,y){
+ const distance=Math.hypot(x-wind.x,(y-wind.y)*.65),radius=Math.max(130,W*.18);
+ const target=motionEnabled()?wind.force*Math.exp(-distance*distance/(radius*radius)):0;
+ if(!motionEnabled()){f.windAngle=0;f.windVelocity=0;return 0}
+ const omega=8,change=(f.windAngle||0)-target,temp=((f.windVelocity||0)+omega*change)*dt,decay=Math.exp(-omega*dt);
+ f.windVelocity=((f.windVelocity||0)-omega*temp)*decay;
+ const maxAngle=compactScene()?.22:.55;
+ f.windAngle=clamp(target+(change+temp)*decay,-maxAngle,maxAngle);return f.windAngle;
+}
+function gardenPointer(event){return overlay.hidden&&(event.target===canvas||event.target.closest?.('.memory-target'))}
+addEventListener('pointerdown',event=>{
+ if(!gardenPointer(event)||!event.isPrimary)return;
+ pointerSample={id:event.pointerId,x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,time:event.timeStamp,dragged:false};
+},{passive:true});
+addEventListener('pointermove',event=>{
+ if(!gardenPointer(event)||!event.isPrimary)return;
+ const previous=pointerSample;
+ if(previous&&previous.id===event.pointerId){
+  const elapsed=Math.max(8,event.timeStamp-previous.time),speed=clamp(((event.clientX-previous.x)+(event.clientY-previous.y)*.2)/elapsed,-2,2);
+  if(motionEnabled()){wind.x=event.clientX;wind.y=event.clientY;wind.force=clamp(wind.force+speed*.18,-.65,.65)}
+  previous.x=event.clientX;previous.y=event.clientY;previous.time=event.timeStamp;
+  previous.dragged||=Math.hypot(event.clientX-previous.startX,event.clientY-previous.startY)>12;
+ }else pointerSample={id:event.pointerId,x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,time:event.timeStamp,dragged:false};
+},{passive:true});
+function finishPointer(event){if(pointerSample?.id===event.pointerId){if(pointerSample.dragged)ignoreClickUntil=performance.now()+350;pointerSample=null}}
+addEventListener('pointerup',finishPointer,{passive:true});addEventListener('pointercancel',finishPointer,{passive:true});
+addEventListener('blur',()=>{pointerSample=null;wind.force=0});
+function leaf(side,length){ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(side*length*.78,-length*.08,side*length*.73,-length*.8,side*length*.79,-length);ctx.bezierCurveTo(side*length*.25,-length*.8,side*length*.04,-length*.32,0,0);const g=ctx.createLinearGradient(0,0,side*length,-length);g.addColorStop(0,'#456f57');g.addColorStop(.5,'#719360');g.addColorStop(1,'#a8bd7a');ctx.fillStyle=g;ctx.fill();ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(side*length*.46,-length*.45,side*length*.79,-length);ctx.strokeStyle='#e4ecc64d';ctx.lineWidth=.8;ctx.stroke()}
+function petal(points,gradient){ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++)ctx.bezierCurveTo(...points[i]);ctx.closePath();ctx.fillStyle=gradient;ctx.fill()}
+function tulip(size,palette,openness){
+ const s=size,b=openness,c=palette;
+ const g=(x1,y1,x2,y2,stops)=>{const a=ctx.createLinearGradient(x1*s,y1*s,x2*s,y2*s);stops.forEach(([p,col])=>a.addColorStop(p,col));return a};
+ ctx.save();ctx.scale(.46+.54*b,1);
+ petal([[0,s*.38],[-s*.9,s*.22,-s*.76,-s*.7,-s*.38,-s*1.01],[-s*.08,-s*.7,s*.12,-s*.65,s*.22,-s*.87],[s*.6,-s*.5,s*.65,s*.2,0,s*.38]],g(-.4,-1,.5,.5,[[0,c[0]],[.5,c[1]],[1,c[2]]]));
+ petal([[0,s*.4],[-s*.75,s*.28,-s*.91,-s*.46,-s*.78,-s*.78],[-s*.52,-s*.49,-s*.2,-s*.62,0,-s*.33],[s*.22,-s*.02,s*.34,s*.28,0,s*.4]],g(-.8,-.6,.3,.3,[[0,c[0]],[.45,c[1]],[1,c[2]]]));
+ petal([[0,s*.4],[s*.68,s*.32,s*.86,-s*.4,s*.76,-s*.8],[s*.42,-s*.51,s*.14,-s*.57,-s*.14,-s*.22],[-s*.35,s*.05,-s*.3,s*.32,0,s*.4]],g(.7,-.8,-.2,.5,[[0,c[0]],[.5,c[1]],[1,c[2]]]));
+ petal([[0,s*.43],[-s*.48,s*.36,-s*.52,-s*.3,-s*.29,-s*.63],[-s*.05,-s*.43,s*.05,-s*.42,s*.3,-s*.61],[s*.52,-s*.26,s*.43,s*.34,0,s*.43]],g(-.35,-.5,.4,.5,[[0,c[0]],[.6,c[1]],[1,c[2]]]));
+ ctx.beginPath();ctx.moveTo(-s*.26,-s*.42);ctx.bezierCurveTo(-s*.36,-s*.1,-s*.27,s*.16,-s*.13,s*.26);ctx.strokeStyle='#fff8e737';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+}
+function star(x,y,r,alpha){ctx.save();ctx.translate(x,y);ctx.globalAlpha=alpha;ctx.beginPath();ctx.moveTo(0,-r);ctx.quadraticCurveTo(r*.18,-r*.18,r,0);ctx.quadraticCurveTo(r*.18,r*.18,0,r);ctx.quadraticCurveTo(-r*.18,r*.18,-r,0);ctx.quadraticCurveTo(-r*.18,-r*.18,0,-r);ctx.fillStyle='#eac67b';ctx.fill();ctx.restore()}
+// Critically damped growth preserves position and velocity between watering stages.
+const mainMotion={growth:.24,bud:0,open:0,growthVelocity:0,budVelocity:0,openVelocity:0};
+function updateMainMotion(dt){
+ const targets={growth:[.24,.46,1,1][taps],bud:taps>=2?1:0,open:taps>=3?1:0};
+ for(const key of ['growth','bud','open']){
+  const velocity=key+'Velocity',omega=key==='open'?3.2:3.8;
+  if(reduced){mainMotion[key]=targets[key];mainMotion[velocity]=0;continue}
+  const change=mainMotion[key]-targets[key],temp=(mainMotion[velocity]+omega*change)*dt,decay=Math.exp(-omega*dt);
+  mainMotion[velocity]=(mainMotion[velocity]-omega*temp)*decay;
+  mainMotion[key]=targets[key]+(change+temp)*decay;
+ }
+}
+const PHONE_PHOTO_X=[.5,.10,.25,.75,.90];
+function flower(f,t,dt){
+ let growth=0,open=1;
+ if(f.main){growth=mainMotion.growth;open=mainMotion.open}
+ else if(bloomAt!==null)growth=reduced?1:ease((t-bloomAt-f.delay)/2.2);
+ if(growth<=0){if(f.button)f.button.hidden=true;return}
+ const mobile=compactScene();
+ const stemRatio=mobile?(f.main?.24:f.photo===1||f.photo===4?.19:f.photo===2||f.photo===3?.32:f.height*.86):f.height;
+ const height=Math.min(H*stemRatio,300)*growth,flowerX=(mobile&&f.photo>=0?PHONE_PHOTO_X[f.photo]:f.x)*W;
+ const x=mobile&&f.button?clamp(flowerX,28,W-28):flowerX;
+ const base=mobile?groundY()+(f.photo>=0?0:(f.base-.86)*H*.7):f.base*H;
+ const ambient=motionEnabled()?Math.sin(motionTime*.72+f.phase)*(.025+f.layer*.002):0;
+ let sway=(ambient+windAngle(f,dt,x,base-height*.6))*growth;
+ if(mobile&&f.button&&height>1){const tip=clamp(x+Math.sin(sway)*height,28,W-28);sway=Math.asin(clamp((tip-x)/height,-.9,.9))}
+ const topX=x+Math.sin(sway)*height,topY=base-Math.cos(sway)*height;
+ f.hitX=topX;f.hitY=topY;const scale=mobile?.78:1;
+ ctx.save();ctx.translate(x,base);ctx.rotate(sway);ctx.globalAlpha=f.layer===0?.65:f.layer===1?.85:1;
+ const len=height,maturity=f.main?clamp((growth-.24)/.76):1;
+ ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(-len*.04,-len*.3,len*.035,-len*.65,0,-len);ctx.strokeStyle='#648b60';ctx.lineWidth=f.main?2.4+1.6*maturity:2.5;ctx.lineCap='round';ctx.stroke();
+ // A seedling has two leaves meeting at the stem tip. They settle lower as the bud grows.
+ const leafUnfold=f.main?maturity*mainMotion.bud:1;
+ ctx.save();ctx.translate(0,-len*(1-.91*leafUnfold));ctx.scale(.72-.1*maturity,1);leaf(-1,Math.max(19,len*(.43-.1*maturity)));ctx.translate(1,-len*.05*leafUnfold);leaf(1,Math.max(17,len*(.37-.08*maturity)));ctx.restore();
+ ctx.translate(0,-len);ctx.scale(scale,scale);
+ const headGrowth=f.main?mainMotion.bud:growth;
+ ctx.globalAlpha*=clamp(headGrowth);
+ ctx.scale(Math.max(.001,headGrowth),Math.max(.001,headGrowth));
+ if(FAMILY_PHOTOS[f.photo]&&bloomAt!==null&&growth>.9){const glow=ctx.createRadialGradient(0,-6,1,0,-6,f.size*2.1);glow.addColorStop(0,'#fff8c99c');glow.addColorStop(1,'#fff9cf00');ctx.fillStyle=glow;ctx.fillRect(-f.size*2.1,-f.size*2.3,f.size*4.2,f.size*4.4);for(let k=0;k<3;k++)star(Math.cos(motionTime*.55+k*2.09)*f.size*1.4,Math.sin(motionTime*.65+k*2.09)*f.size-f.size*.4,3+Math.sin(motionTime+k),.6);}
+ if(f.flashUntil>t){ctx.save();ctx.globalAlpha*=clamp((f.flashUntil-t)/.8);ellipse(0,-8,f.size*1.3,f.size*1.3,'#fff3b94d');ctx.restore()}
+ const hs=f.hovered?1.07:1;ctx.scale(hs,hs);
+ tulip(f.size,colors[f.color],open);
+ if(found.has(f.photo)){ctx.fillStyle='#b86e75';ctx.font='16px serif';ctx.textAlign='center';ctx.fillText('♥',0,-f.size*1.35)}ctx.restore();
+ if(f.button){
+  const active=bloomAt!==null&&(reduced||t-bloomAt>3.7)&&(!mobile||touchFlower(f)),hasPhoto=!!FAMILY_PHOTOS[f.photo];
+  const targetWidth=mobile?Math.max(48,Math.min(58,f.size*1.55*scale)):Math.max(44,f.size*2*scale);
+  f.button.hidden=!active;f.button.style.left=topX+'px';f.button.style.top=(topY-f.size*.15)+'px';f.button.style.width=targetWidth+'px';f.button.style.height=(mobile?Math.max(48,targetWidth):Math.max(48,f.size*2.1*scale))+'px';f.button.style.zIndex=hasPhoto?'2':'1';
+  const label=hasPhoto?`Mở ảnh kỷ niệm ${f.photo+1}`:`Chạm hoa Tulip ${flowers.indexOf(f)+1} để tỏa sáng và đánh thức bướm`;
+  if(f.button.getAttribute('aria-label')!==label)f.button.setAttribute('aria-label',label);
+ }
+}
+function drawCloud(t){
+ const fade=taps<3?1:1-ease((t-tapAt)/1.8);if(fade<=0){cloud.hidden=true;return}
+ const small=compactScene(),cloudScale=small&&H<700?.82:1,cx=W*(landscapePhone()?.76:.5);
+ const desired=Math.max(Math.min(H*.46,Math.max(H*.35,W<=800?285:0)),sceneCeiling+44*cloudScale);
+ const cy=(landscapePhone()?Math.max(110,H*.44):desired)+(motionEnabled()?Math.sin(motionTime*1.15)*3:0);
+ cloudPos={x:cx,y:cy};const shake=motionEnabled()&&t-tapAt<.45?Math.sin((t-tapAt)*55)*4*(1-(t-tapAt)/.45):0;
+ cloud.style.left=(cx-72*cloudScale)+'px';cloud.style.top=(cy-44*cloudScale)+'px';cloud.style.width=144*cloudScale+'px';cloud.style.height=88*cloudScale+'px';cloud.style.opacity=fade;cloud.hidden=taps===3;
+ ctx.save();ctx.globalAlpha=fade;ctx.translate(cx+shake,cy);ctx.scale(cloudScale,cloudScale);ctx.shadowColor='#6a9f9b1c';ctx.shadowBlur=small?10:20;ctx.shadowOffsetY=12;
+ const g=ctx.createLinearGradient(0,-40,0,27);g.addColorStop(0,'#ffffff');g.addColorStop(1,'#edf6ef');ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(-54,23);ctx.bezierCurveTo(-87,18,-77,-20,-48,-16);ctx.bezierCurveTo(-46,-48,-6,-53,7,-28);ctx.bezierCurveTo(29,-47,61,-30,58,-9);ctx.bezierCurveTo(91,-8,84,27,55,26);ctx.bezierCurveTo(22,29,-23,26,-54,23);ctx.fill();ctx.shadowColor='transparent';ellipse(-12,4,1.5,2,'#9aafa0');ellipse(10,4,1.5,2,'#9aafa0');ctx.beginPath();ctx.arc(-1,8,5,.2,Math.PI-.2);ctx.strokeStyle='#b7c6b7';ctx.lineWidth=1.2;ctx.stroke();ctx.restore();
+}
+function rain(gold){if(!motionEnabled())return;for(let i=0;i<(compactScene()?28:52);i++)particles.push({x:cloudPos.x+rand(-57,57),y:cloudPos.y+rand(15,30),vx:rand(-8,8),vy:rand(65,170),life:rand(2.2,2.7),delay:rand(0,.5),gold:gold&&i%3===0,type:'rain'});}
+function updateParticles(dt){for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.delay-=dt;if(p.delay>0)continue;p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.type==='rain'){p.vy+=150*dt;if(p.y>groundY()-H*.005){ripples.push({x:p.x,y:groundY()+H*.002,life:.55});p.life=0}ctx.strokeStyle=p.gold?'#e9c97cbb':'#78b9b9bb';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-1,p.y+7);ctx.stroke()}else star(p.x,p.y,3,clamp(p.life));if(p.life<=0)particles.splice(i,1)}for(let i=ripples.length-1;i>=0;i--){const r=ripples[i];r.life-=dt;ctx.beginPath();ctx.ellipse(r.x,r.y,(.55-r.life)*26,2+(.55-r.life)*4,0,0,Math.PI*2);ctx.strokeStyle=`rgba(97,165,157,${Math.max(0,r.life)})`;ctx.lineWidth=1;ctx.stroke();if(r.life<=0)ripples.splice(i,1)}}
+const butterflies=Array.from({length:7},(_,i)=>({phase:i*1.91,speed:.18+i*.017,size:8+(i%3)*2.4,palette:i%3,mode:'flying',target:null,x:NaN,y:NaN,nextLandingAt:4+i*1.2,leaveAt:0,escapeUntil:0}));
+function takeOff(b,t){b.mode='flying';b.target=null;b.escapeUntil=t+1.6;b.nextLandingAt=t+6+Math.random()*5}
+function updateButterfly(b,i,t,dt){
+ const a=t*b.speed+b.phase;
+ const pathX=W*(.5+.35*Math.sin(a)+.045*Math.sin(a*2.9+b.phase));
+ const pathY=H*(.49+.13*Math.sin(a*1.8+b.phase))+Math.sin(t*2.4+b.phase)*8;
+ if(!Number.isFinite(b.x)){b.x=pathX;b.y=pathY}
+ if(!motionEnabled())return;
+ if(b.mode==='flying'&&bloomAt!==null&&now-bloomAt>3.5&&t>=b.nextLandingAt){
+  const options=flowers.filter(f=>f.button&&!f.button.hidden&&Number.isFinite(f.hitX));
+  b.target=options[(i*3+Math.floor(t/8))%options.length]||null;
+  if(b.target)b.mode='seeking';
+ }
+ if(b.target){
+  const targetX=b.target.hitX,targetY=b.target.hitY-b.target.size*.55*(compactScene()?.78:1);
+  if(b.mode==='perched'){b.x=targetX;b.y=targetY;if(t>b.leaveAt)takeOff(b,t);return}
+  const blend=1-Math.exp(-dt*3.8);b.x+=(targetX-b.x)*blend;b.y+=(targetY-b.y)*blend;
+  if(Math.hypot(targetX-b.x,targetY-b.y)<7){b.mode='perched';b.leaveAt=t+5+i*.4}
+ }else{
+  const blend=1-Math.exp(-dt*1.6),lift=Math.max(0,b.escapeUntil-t)*65;
+  b.x+=(pathX-b.x)*blend;b.y+=(pathY-lift-b.y)*blend;
+ }
+}
+function drawButterflies(t,dt){
+ if(taps===0)return;
+ const clock=motionTime;
+ const palettes=[['#fff3b1','#d9a347'],['#ffd9d6','#cc829c'],['#eaddff','#a18ac3']];
+ const count=compactScene()?3:7;
+ butterflies.slice(0,count).forEach((b,i)=>{
+  updateButterfly(b,i,clock,dt);
+  const a=clock*b.speed+b.phase;
+  const x=b.x,y=b.y;
+  const flap=!motionEnabled()?.72:b.mode==='perched'?.25+.09*Math.sin(clock*2):.2+.8*Math.abs(Math.sin(clock*9+b.phase));
+  const fade=reduced?1:ease((t-firstWaterAt)/1.2);
+  const s=b.size*(compactScene()?.85:1),p=palettes[b.palette];
+  ctx.save();ctx.translate(x,y);ctx.rotate(Math.sin(a*1.7)*.35);ctx.globalAlpha=fade*.92;
+  ctx.shadowColor='#354a431c';ctx.shadowBlur=5;ctx.shadowOffsetY=3;
+  [-1,1].forEach(side=>{
+   ctx.save();ctx.scale(side*flap,1);
+   const g=ctx.createLinearGradient(0,-s,1.8*s,s);g.addColorStop(0,p[0]);g.addColorStop(1,p[1]);
+   ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(s*.6,-s*1.7,s*2,-s*1.35,s*1.55,-s*.12);ctx.bezierCurveTo(s*2,s*.95,s*.75,s*1.4,0,0);ctx.fill();
+   ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(s*.9,-s*.6,s*1.35,-s*.8);ctx.moveTo(0,0);ctx.quadraticCurveTo(s*.7,s*.1,s*1.25,s*.55);ctx.strokeStyle='#fff8ed70';ctx.lineWidth=.6;ctx.stroke();
+   ellipse(s*1.1,-s*.7,s*.13,s*.16,'#fff5dfb0');ctx.restore();
+  });
+  ctx.shadowColor='transparent';ellipse(0,0,1.2,s*.55,'#66674b');ellipse(0,-s*.58,1.7,1.7,'#66674b');
+  ctx.beginPath();ctx.moveTo(0,-s*.6);ctx.quadraticCurveTo(-3,-s*1.1,-4,-s);ctx.moveTo(0,-s*.6);ctx.quadraticCurveTo(3,-s*1.1,4,-s);ctx.strokeStyle='#66674b';ctx.lineWidth=.65;ctx.stroke();ctx.restore();
+ });
+}
+function burst(f){
+ f.flashUntil=now+.8;
+ if(!motionEnabled())return;
+ for(let i=0;i<(compactScene()?14:22);i++){const angle=rand(0,Math.PI*2),speed=rand(18,85);particles.push({x:f.hitX,y:f.hitY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-20,life:rand(.7,1.7),delay:0,type:'light'})}
+ const cap=compactScene()?160:400;if(particles.length>cap)particles.splice(0,particles.length-cap);
+}
+function activateFlower(f){
+ if(!overlay.hidden||bloomAt===null||(!reduced&&now-bloomAt<3.7))return;
+ burst(f);let awakened=0;
+ butterflies.forEach(b=>{if(b.target===f||Math.hypot(b.x-f.hitX,b.y-f.hitY)<55){takeOff(b,motionTime);awakened++}});
+ flowerSFX(f.color);
+ if(FAMILY_PHOTOS[f.photo])openPhoto(f.photo,{x:f.hitX,y:f.hitY});
+ else announce(awakened?'Bông hoa tỏa sáng. Bướm đã thức dậy.':'Bông hoa tỏa sáng.');
+}
+canvas.addEventListener('click',event=>{
+ if(performance.now()<ignoreClickUntil||!overlay.hidden)return;
+ const nearest=flowers.filter(f=>Number.isFinite(f.hitX)).map(f=>({f,distance:Math.hypot(event.clientX-f.hitX,event.clientY-f.hitY)})).sort((a,b)=>a.distance-b.distance)[0];
+ if(nearest&&nearest.distance<Math.max(30,nearest.f.size))activateFlower(nearest.f);
+});
+$('memory-targets').addEventListener('keydown',event=>{
+ const keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'];if(!keys.includes(event.key))return;
+ const options=flowers.filter(f=>f.button&&!f.button.hidden),index=options.findIndex(f=>f.button===document.activeElement);if(index<0)return;
+ event.preventDefault();let next;
+ if(event.key==='Home')next=0;else if(event.key==='End')next=options.length-1;else next=(index+(event.key==='ArrowLeft'||event.key==='ArrowUp'?-1:1)+options.length)%options.length;
+ options[next].button.focus({preventScroll:true});
+});
+function awaken(){bloomAt=now;$('instruction').textContent='Một khu vườn, dành tặng bạn.';bloomSFX();if(motionEnabled())for(let i=0;i<(compactScene()?36:75);i++)particles.push({x:W*.5,y:groundY(),vx:rand(-180,180),vy:rand(-100,-15),life:rand(1,3),delay:0,type:'light'});}
+let frameRequest=0;
+function frame(ms){
+ const interval=!overlay.hidden?1000/12:compactScene()?1000/30:0;
+ if(interval&&ms-lastPaint<interval-1){frameRequest=requestAnimationFrame(frame);return}
+ lastPaint=ms;now=ms/1000;const dt=Math.min(Math.max(0,now-last),.05);last=now;if(motionEnabled())motionTime+=dt;wind.force*=Math.exp(-dt*3);updateMainMotion(dt);updateScene(dt);background(motionTime);
+ if(taps<3){ellipse(W*.5,groundY()+H*.005,46,11,'#aa9a764d');ellipse(W*.5,groundY()+H*.002,32,8,'#baaa8377');}
+ if(taps===3&&bloomAt===null&&now-tapAt>(reduced?.05:1.9))awaken();
+ flowers.forEach(f=>flower(f,now,dt));if(motionEnabled())updateParticles(dt);drawCloud(now);drawButterflies(now,dt);
+ if(bloomAt!==null&&now-bloomAt>4.3&&$('step').dataset.hunt!=='yes'){$('step').dataset.hunt='yes';updatePhotoGuidance();$('dots').hidden=true;}
+ frameRequest=requestAnimationFrame(frame);
+}
+// Every sound is synthesized locally; one master switch mutes music and SFX.
+let audioContext=null,masterGain=null,musicOn=false,soundRequested=false,audioTimer=null,noteIndex=0,audioVersion=0,soundTouched=false,rainBuffer=null,lastChimeAt=-1;
+const voices=new Set();
+const melody=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46,523.25,659.25,783.99,1046.5,880,783.99,659.25,587.33];
+function syncSoundButton(){
+ $('sound').setAttribute('aria-pressed',String(musicOn));
+ $('sound').setAttribute('aria-label',musicOn?'Tắt âm thanh, gồm nhạc và hiệu ứng':'Bật âm thanh, gồm nhạc và hiệu ứng');
+}
+function trackVoice(source,nodes){
+ voices.add(source);source.onended=()=>{voices.delete(source);source.disconnect();nodes.forEach(node=>node.disconnect())};
+}
+function playTone(frequency,time,duration=.9,volume=.045){
+ if(!musicOn||!audioContext||document.hidden||voices.size>48)return;
+ const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
+ oscillator.type='sine';oscillator.frequency.setValueAtTime(frequency,time);
+ gain.gain.setValueAtTime(.0001,time);gain.gain.exponentialRampToValueAtTime(volume,time+.018);gain.gain.exponentialRampToValueAtTime(.0001,time+duration);
+ oscillator.connect(gain);gain.connect(masterGain);trackVoice(oscillator,[gain]);oscillator.start(time);oscillator.stop(time+duration+.03);
+}
+function note(){
+ if(!musicOn||!audioContext||document.hidden)return;
+ const time=audioContext.currentTime,frequency=melody[noteIndex++%melody.length];
+ playTone(frequency,time,1.8,.055);playTone(frequency*2,time,1.3,.012);
+}
+function stopVoices(){voices.forEach(source=>{try{source.stop()}catch{}});voices.clear()}
+function startMelody(){if(musicOn&&!document.hidden&&!audioTimer){note();audioTimer=setInterval(note,750)}}
+async function setMusic(on){
+ const version=++audioVersion;soundRequested=on;
+ if(!on){
+  musicOn=false;clearInterval(audioTimer);audioTimer=null;stopVoices();
+  if(masterGain)masterGain.gain.setValueAtTime(0,audioContext.currentTime);
+  syncSoundButton();return;
+ }
+ try{
+  if(!audioContext){
+   const Audio=window.AudioContext||window.webkitAudioContext;
+   if(!Audio){soundRequested=false;announce('Trình duyệt này chưa hỗ trợ âm thanh Web Audio.');return}
+   audioContext=new Audio();masterGain=audioContext.createGain();masterGain.gain.value=0;
+   const limiter=audioContext.createDynamicsCompressor();limiter.threshold.value=-16;limiter.knee.value=12;limiter.ratio.value=8;
+   masterGain.connect(limiter);limiter.connect(audioContext.destination);
+  }
+  await audioContext.resume();if(version!==audioVersion)return;
+  musicOn=true;masterGain.gain.setTargetAtTime(.4,audioContext.currentTime,.03);startMelody();syncSoundButton();
+ }catch{
+  if(version!==audioVersion)return;
+  musicOn=false;soundRequested=false;clearInterval(audioTimer);audioTimer=null;stopVoices();syncSoundButton();announce('Chưa thể phát âm thanh. Bạn có thể thử bật lại.');
+ }
+}
+function rainSFX(){
+ if(!musicOn||!audioContext||document.hidden)return;
+ if(!rainBuffer){
+  const length=Math.ceil(audioContext.sampleRate*1.15);rainBuffer=audioContext.createBuffer(1,length,audioContext.sampleRate);const data=rainBuffer.getChannelData(0);
+  for(let i=0;i<length;i++){
+   const envelope=Math.pow(1-i/length,.7),droplets=.4+.6*Math.pow(Math.sin(i/audioContext.sampleRate*115),8);
+   data[i]=(Math.random()*2-1)*envelope*droplets;
+  }
+ }
+ const time=audioContext.currentTime,source=audioContext.createBufferSource(),filter=audioContext.createBiquadFilter(),gain=audioContext.createGain();
+ source.buffer=rainBuffer;filter.type='bandpass';filter.frequency.value=1900;filter.Q.value=.65;
+ gain.gain.setValueAtTime(.0001,time);gain.gain.exponentialRampToValueAtTime(.24,time+.06);gain.gain.exponentialRampToValueAtTime(.0001,time+1.15);
+ source.connect(filter);filter.connect(gain);gain.connect(masterGain);trackVoice(source,[filter,gain]);source.start(time);source.stop(time+1.18);
+ [0,.16,.37,.65].forEach((offset,i)=>playTone(1300+i*170,time+offset,.075,.015));
+}
+function bloomSFX(){
+ if(!musicOn||!audioContext)return;
+ const time=audioContext.currentTime;
+ [261.63,329.63,392,523.25,659.25].forEach((frequency,i)=>playTone(frequency,time+i*.07,2.8,.07));
+}
+function flowerSFX(color){
+ if(!musicOn||!audioContext||audioContext.currentTime-lastChimeAt<.09)return;
+ lastChimeAt=audioContext.currentTime;const frequency=[523.25,587.33,659.25,783.99,880][color];
+ playTone(frequency,lastChimeAt,1.1,.10);playTone(frequency*2,lastChimeAt+.015,.7,.022);
+}
+$('sound').onclick=()=>{soundTouched=true;setMusic(!soundRequested)};
+cloud.onclick=()=>{
+ if(taps>=3||now-tapAt<.8)return;
+ const audioReady=taps===0&&!soundTouched?setMusic(true):Promise.resolve();
+ if(taps===0){
+  firstWaterAt=now;document.body.classList.add('started');
+  ['greeting','guidance'].forEach(id=>{$(id).hidden=false;$(id).classList.add('revealed')});
+  requestAnimationFrame(measureScene);
+ }
+ taps++;tapAt=now;rain(taps===3);
+ audioReady.then(()=>{if(taps>0&&now-tapAt<1.5)rainSFX()});
+ if(taps===3)document.body.classList.add('watered');
+ [...$('dots').children].forEach((d,i)=>d.classList.toggle('on',i<taps));
+ cloud.setAttribute('aria-label',`Chạm vào đám mây để tưới nước, lần ${Math.min(taps+1,3)} trên 3`);
+ $('instruction').textContent=taps===1?'Một chút yêu thương · 1/3':taps===2?'Chạm mây thêm lần nữa nhé · 2/3':'Dịu dàng đang nở hoa ♡';
+ if(taps===3){cloud.blur();$('wish').focus({preventScroll:true})}
+};
+function showModal(type,html){if(overlay.hidden)lastFocus=document.activeElement;modalType=type;overlay.innerHTML=html;overlay.hidden=false;pointerSample=null;wind.force=0;document.querySelector('main').inert=true;document.querySelector('header').inert=true;document.querySelector('footer').inert=true;const close=overlay.querySelector('[data-close]');close.onclick=closeModal;requestAnimationFrame(()=>{if(close.isConnected&&!overlay.hidden)close.focus()});}
+function closeModal(){const was=modalType;overlay.hidden=true;overlay.replaceChildren();modalType='';document.querySelector('main').inert=false;document.querySelector('header').inert=false;document.querySelector('footer').inert=false;const target=lastFocus?.isConnected&&lastFocus.getClientRects().length?lastFocus:!$('controls').hidden?$('reread'):cloud;target.focus({preventScroll:true});if(was==='photo'&&autoLetter){autoLetter=false;openLetter()}}
+function photoElement(p){const wrap=document.createElement('div');wrap.className='photo-wrap';const img=document.createElement('img');img.src=p.url;img.alt=p.caption.trim()||'Ảnh kỷ niệm trong khu vườn';img.referrerPolicy='no-referrer';img.onerror=()=>{wrap.textContent='Ảnh đang chờ được thêm vào ♡';img.remove()};wrap.append(img);return wrap}
+// Blob URL keeps selected files in this browser session; no server or upload is used.
+const localPhotoURLs=new Set();
+let photoLoading=false;
+function updatePhotoGuidance(){
+ $('counter').textContent=FAMILY_PHOTOS.length?`Kỷ niệm tìm thấy: ${found.size}/${FAMILY_PHOTOS.length}`:'Khu vườn của bạn';
+ if($('step').dataset.hunt==='yes')$('instruction').textContent=compactScene()?(FAMILY_PHOTOS.length?'Chạm hoa lấp lánh để xem ảnh · Vuốt nhẹ để tạo gió':'Vuốt nhẹ để tạo gió · Chạm hoa để tỏa sáng ♡'):(FAMILY_PHOTOS.length?'Chạm hoa lấp lánh để mở ảnh ♡':'Ngắm vườn hoa, đọc lời chúc hoặc thêm ảnh của bạn ♡');
+}
+function photosChanged(){found.clear();autoLetter=false;hover=-1;updatePhotoGuidance()}
+function releasePhoto(p){if(localPhotoURLs.delete(p.url))URL.revokeObjectURL(p.url)}
+async function readLocalPhoto(file){
+ if(!/^image\/(jpeg|png|webp|gif|avif)$/.test(file.type)||file.size>20*1024*1024)throw new Error('Vui lòng chọn ảnh JPG, PNG, WebP, GIF hoặc AVIF không quá 20 MB.');
+ const url=URL.createObjectURL(file),image=new Image();
+ try{await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=url})}
+ catch{URL.revokeObjectURL(url);throw new Error('Không đọc được một ảnh đã chọn. Hãy thử JPG hoặc PNG khác.')}
+ localPhotoURLs.add(url);return {url,caption:DEFAULT_PHOTO_CAPTIONS[FAMILY_PHOTOS.length%MAX_PHOTOS]};
+}
+function openPhotoEditor(){
+ showModal('editor',`<section class="dialog gallery" role="dialog" aria-modal="true" aria-labelledby="editor-title"><button class="close" data-close aria-label="Đóng phần chọn ảnh">×</button><h2 id="editor-title">Khu vườn mang dấu ấn của bạn.</h2><p>Thêm từ 0 đến 5 ảnh, có thể chọn nhiều ảnh cùng lúc. Lời chúc đã có sẵn; bạn có thể sửa riêng cho từng ảnh nếu muốn. Không chọn ảnh vẫn ngắm hoa và đọc lời chúc bình thường. Ảnh chỉ ở trong trình duyệt, không tải lên máy chủ và sẽ mất khi tải lại trang.</p><div class="photo-picker"><label for="add-photos">Thêm ảnh vào khu vườn</label><input id="add-photos" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" multiple aria-describedby="photo-help photo-status"><p id="photo-help">JPG, PNG, WebP, GIF, AVIF · Tối đa 20 MB mỗi ảnh.</p><span id="selected-count"></span></div><div class="editor-grid"></div><p class="editor-status" id="photo-status" role="status"></p><div class="editor-footer"><button class="pill" id="finish-photos">Xong, về khu vườn ↗</button></div></section>`);
+ const picker=$('add-photos');
+ picker.onchange=async()=>{
+  const files=[...picker.files];if(!files.length||photoLoading)return;
+  const remaining=MAX_PHOTOS-FAMILY_PHOTOS.length;
+  if(files.length>remaining){$('photo-status').textContent=`Bạn còn có thể thêm ${remaining} ảnh. Vui lòng chọn lại tối đa ${remaining} ảnh hoặc xóa bớt ảnh đã có.`;picker.value='';return}
+  photoLoading=true;renderPhotoEditor();const status=$('photo-status');status.textContent='Đang mở ảnh đã chọn…';let added=0,errors=[];
+  try{for(const file of files){try{FAMILY_PHOTOS.push(await readLocalPhoto(file));added++}catch(error){errors.push(error.message)}}}
+  finally{photoLoading=false;if(added)photosChanged();if(modalType==='editor'){renderPhotoEditor();$('photo-status').textContent=[added?`Đã thêm ${added} ảnh.`:'',...new Set(errors)].filter(Boolean).join(' ')}picker.value=''}
+ };
+ renderPhotoEditor();
+ $('finish-photos').onclick=closeModal;
+}
+function renderPhotoEditor(){
+ const grid=overlay.querySelector('.editor-grid');grid.replaceChildren();
+ $('selected-count').textContent=`Đã chọn ${FAMILY_PHOTOS.length}/${MAX_PHOTOS} ảnh`;
+ $('add-photos').disabled=photoLoading||FAMILY_PHOTOS.length===MAX_PHOTOS;
+ $('photo-status').textContent=photoLoading?'Đang mở ảnh đã chọn…':FAMILY_PHOTOS.length===MAX_PHOTOS?'Đã đủ 5 ảnh. Bạn có thể thay ảnh hoặc xóa bớt để thêm ảnh khác.':FAMILY_PHOTOS.length?'Bạn có thể thêm ảnh, thay ảnh hoặc xóa từng ảnh.':'Chưa chọn ảnh. Bạn có thể để khu vườn không có ảnh.';
+ FAMILY_PHOTOS.forEach((p,i)=>{
+  const card=document.createElement('div');card.className='photo-editor';card.append(photoElement(p));
+  const label=document.createElement('label');label.htmlFor=`file-${i}`;label.textContent=`Thay ảnh ${i+1}`;
+  const input=document.createElement('input');input.type='file';input.id=`file-${i}`;input.accept='image/jpeg,image/png,image/webp,image/gif,image/avif';input.disabled=photoLoading;
+  input.addEventListener('change',async()=>{
+   const file=input.files?.[0];if(!file||photoLoading)return;
+   photoLoading=true;renderPhotoEditor();let message;
+   try{const next=await readLocalPhoto(file);releasePhoto(p);p.url=next.url;photosChanged();message=`Đã thay ảnh ${i+1}.`}
+   catch(error){message=error.message}
+   finally{photoLoading=false;if(modalType==='editor'){renderPhotoEditor();$('photo-status').textContent=message;$(`file-${i}`).focus()}}
+  });
+  const captionLabel=document.createElement('label');captionLabel.htmlFor=`caption-${i}`;captionLabel.className='caption-label';captionLabel.textContent=`Lời chúc cho ảnh ${i+1}`;
+  const caption=document.createElement('input');caption.type='text';caption.className='editor-caption';caption.id=`caption-${i}`;caption.maxLength=160;caption.value=p.caption;caption.placeholder=DEFAULT_PHOTO_CAPTIONS[i];
+  caption.addEventListener('input',()=>{p.caption=caption.value;card.querySelector('img')?.setAttribute('alt',p.caption.trim()||'Ảnh kỷ niệm trong khu vườn')});
+  const remove=document.createElement('button');remove.className='pill remove-photo';remove.textContent='Xóa ảnh';remove.setAttribute('aria-label',`Xóa ảnh ${i+1}`);remove.disabled=photoLoading;
+  remove.onclick=()=>{releasePhoto(p);FAMILY_PHOTOS.splice(i,1);photosChanged();renderPhotoEditor();$('photo-status').textContent=`Đã xóa ảnh ${i+1}. Còn ${FAMILY_PHOTOS.length} ảnh.`;$('add-photos').focus()};
+  card.append(label,input,captionLabel,caption,remove);grid.append(card);
+ });
+}
+$('choose-photos').onclick=openPhotoEditor;
+function bindPhotoTilt(){
+ const card=overlay.querySelector('.polaroid');if(!card)return;
+ const reset=()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')};
+ card.addEventListener('pointermove',event=>{
+  if(!motionEnabled()||event.pointerType==='touch'||event.target.closest('button')){reset();return}
+  const rect=card.getBoundingClientRect(),x=clamp((event.clientX-rect.left)/rect.width),y=clamp((event.clientY-rect.top)/rect.height);
+  card.style.setProperty('--tilt-x',`${(0.5-y)*10}deg`);card.style.setProperty('--tilt-y',`${(x-.5)*12}deg`);
+ },{passive:true});
+ card.addEventListener('pointerleave',reset);card.addEventListener('pointercancel',reset);
+}
+function openPhoto(index,origin){const p=FAMILY_PHOTOS[index];if(!p)return;found.add(index);updatePhotoGuidance();showModal('photo','<section class="dialog polaroid" role="dialog" aria-modal="true" aria-labelledby="photo-caption"><button class="close" data-close aria-label="Đóng ảnh">×</button><div id="photo-slot"></div><p class="caption" id="photo-caption"></p><div class="photo-count"></div></section>');$('photo-slot').replaceWith(photoElement(p));$('photo-caption').textContent=p.caption.trim()||DEFAULT_PHOTO_CAPTIONS[index];bindPhotoTilt();overlay.querySelector('.photo-count').textContent=`KỶ NIỆM ${index+1} / ${FAMILY_PHOTOS.length} · MÃI THƯƠNG`;if(origin){const el=overlay.querySelector('.polaroid');el.style.setProperty('--from-x',(origin.x-W/2)+'px');el.style.setProperty('--from-y',(origin.y-H/2)+'px')}if(FAMILY_PHOTOS.length>0&&found.size===FAMILY_PHOTOS.length&&!letterSeen)autoLetter=true;}
+function openLetter(){letterSeen=true;$('controls').hidden=false;$('wish').hidden=true;showModal('letter',`<section class="dialog letter" role="dialog" aria-modal="true" aria-labelledby="letter-title"><button class="close" data-close aria-label="Đóng lời chúc">×</button><p class="date">20 / 10 · VỚI TẤT CẢ YÊU THƯƠNG</p><p class="salute">Gửi bạn — người phụ nữ tuyệt vời,</p><h2 id="letter-title">Mong những điều dịu dàng<br>và bình yên nhất luôn ở bên.</h2><div class="body"><p>Có biết bao vẻ đẹp ở một người phụ nữ: sự tử tế, lòng can đảm, những ước mơ và cả cách bạn bước tiếp qua những ngày không dễ dàng. Nhân ngày 20/10, xin gửi đến bạn một lời cảm ơn vì những điều tốt đẹp bạn mang đến cho cuộc sống, theo cách rất riêng của mình.</p><p>Mong bạn luôn có sức khỏe để làm điều mình yêu, có tự do để chọn con đường mình muốn và có những người biết lắng nghe, trân trọng bạn. Giữa những bộn bề, hãy dành cho chính mình một khoảng nghỉ, một niềm vui nhỏ và thật nhiều dịu dàng.</p><p>Như những bông Tulip trong khu vườn này, mong bạn luôn được nở rộ theo nhịp điệu của riêng mình. Không cần lúc nào cũng mạnh mẽ hay hoàn hảo, bạn vẫn xứng đáng được yêu thương. Chúc bạn một ngày 20/10 rạng rỡ và những ngày sau đó cũng đầy bình yên, hạnh phúc.</p></div><p class="signature">Thương thật nhiều ♡</p><button class="pill" id="back-garden">Ngắm lại vườn hoa <span class="arrow">↗</span></button></section>`);$('back-garden').onclick=closeModal;}
+function openGallery(){if(!FAMILY_PHOTOS.length){openPhotoEditor();return}showModal('gallery','<section class="dialog gallery" role="dialog" aria-modal="true" aria-labelledby="gallery-title"><button class="close" data-close aria-label="Đóng bộ ảnh">×</button><h2 id="gallery-title">Những khoảnh khắc rạng ngời.</h2><p>Những điều đẹp đẽ luôn xứng đáng được lưu giữ.</p><div class="gallery-grid"></div></section>');FAMILY_PHOTOS.forEach((p,i)=>{const b=document.createElement('button');b.className='gallery-item';b.setAttribute('aria-label',`Xem ảnh ${i+1}: ${p.caption}`);b.append(photoElement(p));const caption=document.createElement('span');caption.textContent=p.caption;b.append(caption);b.onclick=()=>openPhoto(i);overlay.querySelector('.gallery-grid').append(b)})}
+$('wish').onclick=openLetter;$('reread').onclick=openLetter;$('gallery-button').onclick=openGallery;
+$('reset').onclick=()=>{
+ setMusic(false);
+ pointerSample=null;wind.force=0;ignoreClickUntil=0;
+ butterflies.forEach((b,i)=>Object.assign(b,{mode:'flying',target:null,x:NaN,y:NaN,nextLandingAt:motionTime+4+i*1.2,leaveAt:0,escapeUntil:0}));
+ taps=0;tapAt=-10;firstWaterAt=null;bloomAt=null;found.clear();particles=[];ripples=[];hover=-1;letterSeen=false;autoLetter=false;
+ document.body.classList.remove('started','watered');
+ Object.assign(mainMotion,{growth:.24,bud:0,open:0,growthVelocity:0,budVelocity:0,openVelocity:0});
+ ['greeting','guidance'].forEach(id=>{$(id).hidden=true;$(id).classList.remove('revealed')});
+ updatePhotoGuidance();delete $('step').dataset.hunt;$('instruction').textContent='';
+ $('dots').hidden=false;[...$('dots').children].forEach(d=>d.classList.remove('on'));
+ $('controls').hidden=true;$('wish').hidden=false;cloud.hidden=false;cloud.setAttribute('aria-label','Chạm vào đám mây để tưới nước, lần 1 trên 3');
+ makeFlowers();cloud.focus({preventScroll:true});
+};
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape'){e.preventDefault();closeModal()}if(e.key==='Tab'){const nodes=[...overlay.querySelectorAll('button,[href],input,[tabindex="0"]')].filter(node=>!node.disabled&&node.getClientRects().length);const first=nodes[0],end=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();end.focus()}else if(!e.shiftKey&&document.activeElement===end){e.preventDefault();first.focus()}}});
+document.addEventListener('visibilitychange',()=>{
+ pointerSample=null;wind.force=0;
+ if(document.hidden){
+  cancelAnimationFrame(frameRequest);frameRequest=0;clearInterval(audioTimer);audioTimer=null;stopVoices();
+  if(audioContext)audioContext.suspend().catch(()=>{});
+ }else{
+  last=performance.now()/1000;if(!frameRequest)frameRequest=requestAnimationFrame(frame);
+  if(audioContext&&musicOn)audioContext.resume().then(()=>startMelody()).catch(()=>{setMusic(false);announce('Âm thanh đã tạm dừng. Bạn có thể bật lại.')});
+ }
+});
+const buttonIcons={
+ 'choose-photos':'M12 5v14M5 12h14',
+ 'wish':'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z',
+ 'reread':'M4 5h16v14H4zM4 6l8 6 8-6',
+ 'gallery-button':'M4 4h16v16H4zM4 16l5-5 4 4 3-3 4 4M8 8h.01',
+ 'reset':'M3 10a9 9 0 1 1 2 8M3 4v6h6'
+};
+Object.entries(buttonIcons).forEach(([id,path])=>{const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('class','button-icon');svg.setAttribute('aria-hidden','true');const shape=document.createElementNS(svg.namespaceURI,'path');shape.setAttribute('d',path);svg.append(shape);$(id).prepend(svg)});
+frameRequest=requestAnimationFrame(frame);
+</script>
+</body>
+</html>
